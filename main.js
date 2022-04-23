@@ -107,7 +107,7 @@ const videoBtnModal = () => {
 
 // Video component with default arg value
 // = 'cNjIUSDnb9k'
-const videoPlayer = (videoId) => {
+const videoPlayer = (videoId = 'cNjIUSDnb9k') => {
   const domString = `
   <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   `;
@@ -212,12 +212,18 @@ const eventListeners = () => {
   // FORM SUBMIT
   const form = document.querySelector('form');
   form.addEventListener('submit', (e) => {
-    e.preventDefault(); // this goes in EVERY form submit to prevent page reload
-    // grab the values from the form inputs and create an object
-    // push that object to the data array    
-    // rerender cards using the cardsOnDom function and pass it the updated data array
+    e.preventDefault(); // this goes in EVERY form submit to prevent page reload //THIS IS IMPORTANT
     
-    
+    const newVideoObject = {
+      videoId: document.querySelector("#videoid").value,
+      title: document.querySelector("#title").value,
+      category: document.querySelector("#category").value,
+      favorite: document.querySelector("#favorite").checked,
+    }
+
+    data.push(newVideoObject)
+    cardsOnDom(data)
+
     // Close modal and reset form
     formModal.hide()
     form.reset();
